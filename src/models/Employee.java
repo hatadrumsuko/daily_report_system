@@ -7,30 +7,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-/**
- * @author incid
- *
- */
 @Table(name = "employees")
 @NamedQueries({
     @NamedQuery(
-            name = "gerAllEmployees",
-            query = "SELECT e FROM Employee AS e ORDER BY e.id DESC"
+        name = "getAllEmployees",
+        query = "SELECT e FROM Employee AS e ORDER BY e.id DESC"
     ),
     @NamedQuery(
-            name = "getEmployeesCount",
-            query = "SELECT e FROM COUNT(e) FROM Employee AS e"
+        name = "getEmployeesCount",
+        query = "SELECT COUNT(e) FROM Employee AS e"
     ),
     @NamedQuery(
-            name = "checkRegisteredCode",
-            query = "SELECT COUNT(e) FROM Employee AS e WHERE e.code = :code"
+        name = "checkRegisteredCode",
+        query = "SELECT COUNT(e) FROM Employee AS e WHERE e.code = :code"
     ),
     @NamedQuery(
-            name = "checkLoginCodeAndPassword",
-            query = "SELECT e from Employee AS e WHERE e.delete_flag = 0 AND e.code = :code AND e.password = :pass"
+        name = "checkLoginCodeAndPassword",
+        query = "SELECT e FROM Employee AS e WHERE e.delete_flag = 0 AND e.code = :code AND e.password = :pass"
     )
 })
 @Entity
@@ -40,17 +37,17 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "code", nullable = false,unique = true) //  unique = trueは一意制約　すでに存在している社番は登録できない
+    @Column(name = "code", nullable = false, unique = true)
     private String code;
 
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "password", length = 64, nullable = false) // 最大64文字まで入力可能
-    private String  password;
+    @Column(name = "password", length = 64, nullable = false)
+    private String password;
 
     @Column(name = "admin_flag", nullable = false)
-    private Integer admi_flag;
+    private Integer admin_flag;
 
     @Column(name = "created_at", nullable = false)
     private Timestamp created_at;
@@ -93,12 +90,12 @@ public class Employee {
         this.password = password;
     }
 
-    public Integer getAdmi_flag() {
-        return admi_flag;
+    public Integer getAdmin_flag() {
+        return admin_flag;
     }
 
-    public void setAdmi_flag(Integer admi_flag) {
-        this.admi_flag = admi_flag;
+    public void setAdmin_flag(Integer admin_flag) {
+        this.admin_flag = admin_flag;
     }
 
     public Timestamp getCreated_at() {
@@ -124,6 +121,4 @@ public class Employee {
     public void setDelete_flag(Integer delete_flag) {
         this.delete_flag = delete_flag;
     }
-
-
 }
